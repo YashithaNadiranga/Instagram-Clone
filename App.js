@@ -12,6 +12,7 @@ import SplashScreen from './src/screens/SplashScreen';
 import InitialLaunchScreen from './src/screens/InitialLaunchScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 
+
 const Stack = createStackNavigator();
 
 export default class App extends Component {
