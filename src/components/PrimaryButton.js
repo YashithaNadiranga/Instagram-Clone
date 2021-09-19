@@ -8,16 +8,17 @@ export class PrimaryButton extends Component {
   }
 
   render() {
-    const {buttonBg, text, label} = this.props;
+    const {buttonBg, text, label, press} = this.props;
 
     const buttonBackground = buttonBg || colors.primary;
     const textColor = text || colors.secondary;
     const textLabel = label;
+    const presss = press;
 
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          style={[styles.button, {backgroundColor: buttonBackground}]}>
+          style={[styles.button, {backgroundColor: buttonBackground}]} onPress={()=>{presss}}>
           <Text style={[styles.text, {color: textColor}]}>{textLabel}</Text>
         </TouchableOpacity>
       </View>
