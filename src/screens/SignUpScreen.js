@@ -175,8 +175,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomContainer: {
-    borderTopWidth: 1,
-    borderColor: colors.gray1,
     padding: 15,
   },
   login: {
