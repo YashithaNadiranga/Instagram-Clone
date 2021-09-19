@@ -11,7 +11,6 @@ export default class Main extends Component {
     render() {
         return (
             <NativeBaseProvider>
-              <AppBar/>
               <BottomBar/>
             </NativeBaseProvider>
         )

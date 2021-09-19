@@ -4,15 +4,23 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const HomeRoute = () => <Text>Home</Text>;
+//screens
 
-const SearchRoute = () => <Text>Search</Text>;
+import HomeScreen from '../screens/Home';
+import SearchScreen from '../screens/Search';
+import AddScreen from '../screens/AddNewPost';
+import ShopScreen from '../screens/Shop';
+import ProfileScreen from '../screens/Profile';
 
-const AddRoute = () => <Text>Add New Post</Text>;
+const HomeRoute = () => <HomeScreen />;
 
-const ShopRoute = () => <Text>Shop</Text>;
+const SearchRoute = () => <SearchScreen />;
 
-const ProfileRoute = () => <Text>Profile</Text>;
+const AddRoute = () => <AddScreen />;
+
+const ShopRoute = () => <ShopScreen />;
+
+const ProfileRoute = () => <ProfileScreen />;
 
 
 
