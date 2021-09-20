@@ -9,6 +9,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  BackHandler,
 } from 'react-native';
 import {colors} from '../config/Colors';
 import PhoneInputForm from '../components/PhoneInputForm';
@@ -23,6 +24,25 @@ export class SignUpScreen extends Component {
       isPhoneEnabled: true,
     };
   }
+
+  componentDidMount() {
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.handleBackButtonClick,
+    );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.handleBackButtonClick,
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack(null);
+    return true;
+  };
 
   switchButton(val) {
     this.setState({isPhoneEnabled: val});
@@ -112,7 +132,7 @@ export class SignUpScreen extends Component {
 
               <View style={{display: isPhoneEnabled ? 'none' : 'flex'}}>
                 <View style={styles.EmailINputWrapper}>
-                  <PrimaryInputForm placeHolderText=" Enail address" />
+                  <PrimaryInputForm placeHolderText=" Email address" />
                 </View>
                 <View style={styles.buttonWrapper}>
                   <Button
@@ -134,7 +154,7 @@ export class SignUpScreen extends Component {
                 <Text style={styles.alreradyAccount}>
                   Already have an account?
                 </Text>{' '}
-                <Text style={styles.logIn}>LogIn.</Text>
+                <Text style={styles.logIn} onPress={()=>{this.props.navigation.navigate('SignInScreen')}}>LogIn.</Text>
               </Text>
             </View>
           </View>

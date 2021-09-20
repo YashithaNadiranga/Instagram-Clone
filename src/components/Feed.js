@@ -8,9 +8,9 @@ const Feed = () => {
         <View style={styles.headerLeftWrapper}>
           <Image
             style={styles.profileThumb}
-            source={require('../assets/images/face.jpeg')}
+            source={require('../assets/images/profilePage/dila.jpeg')}
           />
-          <Text style={styles.headerTitle}> Catherine</Text>
+          <Text style={styles.headerTitle}> Dila_2000</Text>
         </View>
         <Image
           style={styles.icon}
@@ -47,16 +47,18 @@ const Feed = () => {
         <View style={styles.underLine} />
       </View>
       <View style={styles.likesAndCommentsWrapper}>
-        <Image
+        {/* <Image
           style={styles.likesImage}
           source={require('../assets/images/heart.png')}
-        />
+        /> */}
         <Text style={styles.likesTitle}> 1,124 Likes</Text>
+      </View>
 
-        <Text>
+      <View>
+      <Text style={{paddingLeft:15, marginTop: -15, marginBottom:20}}>
           {' '}
-          <Text style={styles.headerTitle}> Catherine</Text>{' '}
-          <Text style={styles.likesTitle}> Missing Summary </Text>
+          <Text style={styles.headerTitle}>Dila_2000</Text>{' '}
+          <Text style={styles.likesTitle2}> Crush😍😍 </Text>
         </Text>
       </View>
     </View>
@@ -81,9 +83,10 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
   icon: {
-    width: 40,
-    height: 40,
+    width: 25,
+    height: 25,
     opacity: 0.5,
+    
   },
   headerLeftWrapper: {
     flexDirection: 'row',
@@ -102,7 +105,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   feddimageFooterLeftWrapper: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   underLine: {
     height: 1,
@@ -123,5 +126,9 @@ export const styles = StyleSheet.create({
   likesTitle: {
     fontSize: 17,
     fontWeight: '600',
+  },
+  likesTitle2: {
+    fontSize: 17,
+    fontWeight: '400',
   },
 });

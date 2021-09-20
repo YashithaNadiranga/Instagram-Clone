@@ -5,8 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Modal,
-  FlatList,
+  BackHandler,
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import {colors} from '../config/Colors';
@@ -15,6 +14,26 @@ export class InitialLaunchScreen extends Component {
   constructor(props) {
     super(props);
   }
+
+  componentDidMount() {
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.handleBackButtonClick,
+    );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.handleBackButtonClick,
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack(null);
+    return false;
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -61,14 +80,16 @@ export class InitialLaunchScreen extends Component {
                 alignItems: 'center',
                 backgroundColor: 'transparent',
                 padding: 20,
-              }} onPress={()=>{
+              }}
+              onPress={() => {
                 this.props.navigation.navigate('SignUpScreen');
               }}>
               <Text
                 style={{fontSize: 14, color: '#3897f0'}}
                 onPress={() => {
                   console.log('Press');
-                }} onPress={()=>{
+                }}
+                onPress={() => {
                   this.props.navigation.navigate('SignUpScreen');
                 }}>
                 Sign Up with Email Address or Phone Number
@@ -86,7 +107,12 @@ export class InitialLaunchScreen extends Component {
                 marginBottom: 10,
               }}>
               <Text style={styles.from}>Already have an account? </Text>
-              <Text>Log in</Text>
+              <Text
+                onPress={() => {
+                  this.props.navigation.navigate('SignInScreen');
+                }}>
+                Log in
+              </Text>
             </View>
           </View>
         </View>
@@ -124,7 +150,8 @@ export const styles = StyleSheet.create({
   instaLogo: {
     width: '50%',
     height: '25%',
-    marginBottom: 200,
+    marginBottom: 150,
+    marginTop: 100,
   },
   bottomWrapper: {
     borderTopWidth: 0.5,

@@ -9,13 +9,16 @@ export class Stories extends Component {
           <Text style={styles.storiesHeaderText}>Stories</Text>
           <Text style={styles.storiesHeaderText}>Watch All</Text>
         </View>
-        <ScrollView horizontal={true}>
+        <ScrollView
+          horizontal={true}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}>
           <View style={styles.myStoryImageWrapper}>
             <Image
               style={styles.myStoryImage}
-              source={require('../assets/images/face.jpeg')}
+              source={require('../assets/images/profilePage/yashitha.jpg')}
             />
-            <Text style={styles.profileName}>Catherin</Text>
+            <Text style={styles.profileName}>Yashitha</Text>
           </View>
           <View style={styles.otherStoryImageWrapper}>
             <Image
@@ -24,9 +27,9 @@ export class Stories extends Component {
             />
             <Image
               style={styles.otherStories}
-              source={require('../assets/images/face.jpeg')}
+              source={require('../assets/images/profilePage/shamal.jpeg')}
             />
-            <Text style={styles.profileName}>Seona</Text>
+            <Text style={styles.profileName}>MAD_SHA</Text>
           </View>
           <View style={styles.otherStoryImageWrapper}>
             <Image
@@ -35,10 +38,34 @@ export class Stories extends Component {
             />
             <Image
               style={styles.otherStories}
-              source={require('../assets/images/face.jpeg')}
+              source={require('../assets/images/profilePage/dila.jpeg')}
             />
-            <Text style={styles.profileName}>Margeret</Text>
+            <Text style={styles.profileName}>Dila_2000</Text>
           </View>
+          <View style={styles.otherStoryImageWrapper}>
+            <Image
+              style={styles.storyRound}
+              source={require('../assets/images/storiescircle.png')}
+            />
+            <Image
+              style={styles.otherStories}
+              source={require('../assets/images/profilePage/sachin.jpeg')}
+            />
+            <Text style={styles.profileName}>Sachin</Text>
+          </View>
+
+          <View style={styles.otherStoryImageWrapper}>
+            <Image
+              style={styles.storyRound}
+              source={require('../assets/images/storiescircle.png')}
+            />
+            <Image
+              style={styles.otherStories}
+              source={require('../assets/images/profilePage/sahan.jpeg')}
+            />
+            <Text style={styles.profileName}>Sahan</Text>
+          </View>
+
           <View style={styles.otherStoryImageWrapper}>
             <Image
               style={styles.storyRound}
@@ -73,23 +100,24 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
   },
   myStoryImage: {
-    width: 75,
-    height: 75,
+    width: 60,
+    height: 60,
     borderRadius: 50,
+    marginBottom: 5
   },
   myStoryImageWrapper: {
     padding: 10,
   },
   otherStories: {
     position: 'absolute',
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     borderRadius: 50,
     margin: 12,
   },
   storyRound: {
-    width: 85,
-    height: 85,
+    width: 75,
+    height: 75,
   },
   otherStoryImageWrapper: {},
   profileName: {

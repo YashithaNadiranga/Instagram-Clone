@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "612061315562",
+    "project_id": "feanixlabs-instagram",
+    "storage_bucket": "feanixlabs-instagram.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612061315562:android:fe1c5d64d0b80440ceb293",
+        "android_client_info": {
+          "package_name": "com.feanixlabs.instagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612061315562-euggnkh3akekkm8heq0c4mdusr43qe60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6Yw7LrYeBpYGGCujD8_XV1AeEeT8c54U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612061315562-euggnkh3akekkm8heq0c4mdusr43qe60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

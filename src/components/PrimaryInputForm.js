@@ -4,11 +4,11 @@ import {colors} from '../config/Colors';
 
 export class PrimaryInputForm extends Component {
   render() {
-    const {placeHolderText} = this.props;
+    const {placeHolderText, secureTextEntry} = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <TextInput placeholder={placeHolderText} />
+          <TextInput placeholder={placeHolderText} secureTextEntry={secureTextEntry} />
         </View>
       </View>
     );

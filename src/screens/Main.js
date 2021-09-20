@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet,BackHandler, Text, View } from 'react-native';
 import { Icon } from 'native-base';
 import {  NativeBaseProvider } from "native-base";
 import AppBar from '../components/AppBar';
 import BottomBar from '../components/BottomBar';
 
 export default class Main extends Component {
-
+    componentDidMount() {
+        BackHandler.addEventListener(
+          'hardwareBackPress',
+          this.handleBackButtonClick,
+        );
+      }
+    
+      componentWillUnmount() {
+        BackHandler.removeEventListener(
+          'hardwareBackPress',
+          this.handleBackButtonClick,
+        );
+      }
+    
+      handleBackButtonClick = () => {
+        this.props.navigation.goBack(null);
+        return false;
+      };
 
     render() {
         return (

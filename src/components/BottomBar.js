@@ -10,7 +10,7 @@ import HomeScreen from '../screens/Home';
 import SearchScreen from '../screens/Search';
 import AddScreen from '../screens/AddNewPost';
 import ShopScreen from '../screens/Shop';
-import ProfileScreen from '../screens/Profile';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const HomeRoute = () => <HomeScreen />;
 
