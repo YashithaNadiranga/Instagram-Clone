@@ -5,23 +5,59 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Modal,
-  FlatList,
-  Platform,
+  TextInput,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
-  BackHandler
+  BackHandler,
+  Alert
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Button, IconButton} from 'react-native-paper';
 import {colors} from '../config/Colors';
 import PrimaryInputForm from '../components/PrimaryInputForm';
-import {Icon} from 'native-base';
+import auth from '@react-native-firebase/auth';
+// import {
+//   GoogleSignin,
+//   GoogleSigninButton,
+// } from '@react-native-google-signin/google-signin';
+
+// GoogleSignin.configure({
+//   webClientId: '612061315562-euggnkh3akekkm8heq0c4mdusr43qe60.apps.googleusercontent.com',
+// });
+
 
 export class SignInScreen extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      email: '',
+      pass: '',
+    };
+
+    this.login = this.login.bind(this);
+    this.checkValidation = this.checkValidation.bind(this);
+    // this.onGoogleButtonPress = this.onGoogleButtonPress.bind(this);
   }
+  
+    // onGoogleButtonPress = async()=> {
+
+    //   // try {
+    //   // Get the users ID token
+    //   const { idToken } = await GoogleSignin.signIn();
+    
+    //   // Create a Google credential with the token
+    //   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    
+    //   // Sign-in the user with the credential
+    //   return auth().signInWithCredential(googleCredential);
+    // // } catch (error) {
+    // //   console.log(error);
+    // // }
+    // }
+  
+  
 
   componentDidMount() {
     BackHandler.addEventListener(
@@ -38,15 +74,40 @@ export class SignInScreen extends Component {
   }
 
   handleBackButtonClick = () => {
-    this.props.navigation.goBack(null);
-    return false;
+    this.props.navigation.navigate('InitialLaunchScreen');
+    return true;
   };
+
+  login = async() =>{
+    try {
+      auth()
+        .signInWithEmailAndPassword(this.state.email, this.state.pass)
+        .then((res) => {
+          console.log(res.user.displayName);
+          AsyncStorage.setItem('isLoggedIn','1');
+          AsyncStorage.setItem('User', res.user.displayName);
+          this.props.navigation.navigate('MainScreen');
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  checkValidation =()=>{
+
+    if(this.state.email.length==0){
+      Alert.alert('Validation Error','Please Enter valid Email Address')
+    }else if(this.state.pass.length==0){
+      Alert.alert('Validation Error','Please Enter valid Password')
+    }else{
+      this.login();
+      console.log(this.state.email +''+this.state.pass);
+    }
+  }
 
   render() {
     return (
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.container}>
             <View style={styles.languageContainer}></View>
@@ -57,14 +118,48 @@ export class SignInScreen extends Component {
               />
 
               <View style={styles.ButtonItemContainer}>
-                <PrimaryInputForm placeHolderText="Phone number, email address or username" />
+                <View
+                  style={{
+                    backgroundColor: colors.gray1,
+                    borderWidth: 0.5,
+                    borderColor: colors.gray,
+                    borderRadius: 5,
+                    paddingLeft: 10,
+                    marginTop: 10,
+                    marginBottom: 10,
+                  }}>
+                  <TextInput
+                    placeholder="Phone number, email address or username"
+                    value={this.state.email}
+                    autoCapitalize='none'
+                    autoCompleteType='email'
+                    onChangeText={value => {
+                      this.setState({email: value});
+                    }}
+                  />
+                </View>
               </View>
 
               <View style={styles.ButtonItemContainer}>
-                <PrimaryInputForm
-                  placeHolderText="Password"
-                  secureTextEntry={true}
-                />
+                <View
+                  style={{
+                    backgroundColor: colors.gray1,
+                    borderWidth: 0.5,
+                    borderColor: colors.gray,
+                    borderRadius: 5,
+                    paddingLeft: 10,
+                    marginTop: 10,
+                    marginBottom: 10,
+                  }}>
+                  <TextInput
+                    placeholder="Password"
+                    secureTextEntry={true}
+                    value={this.state.pass}
+                    onChangeText={value => {
+                      this.setState({pass: value});
+                    }}
+                  />
+                </View>
               </View>
 
               <View style={styles.ButtonItemContainer}>
@@ -73,12 +168,14 @@ export class SignInScreen extends Component {
                   contentStyle={{height: 45, paddingTop: 3}}
                   color="#3897f0"
                   mode="contained"
-                  onPress={() => console.log('Pressed')}>
+                  onPress={
+                    this.checkValidation
+                    }>
                   <Text style={{fontSize: 16, color: 'white'}}>Log In</Text>
                 </Button>
               </View>
 
-              <View
+              {/* <View
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
@@ -92,17 +189,22 @@ export class SignInScreen extends Component {
                   </Text>
                 </View>
                 <View style={{flex: 1, height: 1, backgroundColor: 'gray'}} />
-              </View>
+              </View> */}
 
-              <View style={styles.ButtonItemContainer}>
-                <Button
-                  labelStyle={{color: '#3897f0'}}
-                  icon="facebook"
-                  mode="text"
-                  onPress={() => console.log('Pressed')}>
-                  Log In With Facebook
-                </Button>
-              </View>
+              {/* <View style={styles.ButtonItemContainer}>
+                <GoogleSigninButton
+                  style={{width: '100%', height: 48}}
+                  size={GoogleSigninButton.Size.Wide}
+                  color={GoogleSigninButton.Color.Dark}
+                  onPress={this._signIn}
+                  // disabled={this.state.isSigninInProgress}
+                  onPress={() => this.onGoogleButtonPress().then(() => {
+                    console.log('Signed in with Google!');
+                    this.props.navigation.navigate('MainScreen')
+                  
+                  })}
+                />
+              </View> */}
             </View>
 
             <View style={styles.fbLogoContainer}>
@@ -114,7 +216,12 @@ export class SignInScreen extends Component {
                     marginBottom: 10,
                   }}>
                   <Text style={styles.from}>Don't have an account? </Text>
-                  <Text onPress={()=>{this.props.navigation.navigate('SignUpScreen')}}>Sign up.</Text>
+                  <Text
+                    onPress={() => {
+                      this.props.navigation.navigate('SignUpScreen');
+                    }}>
+                    Sign up.
+                  </Text>
                 </View>
               </View>
             </View>
@@ -157,7 +264,7 @@ export const styles = StyleSheet.create({
     marginBottom: 100,
   },
   bottomWrapper: {
-    borderTopWidth: 0.5,
+    // borderTopWidth: 0.5,
     borderColor: colors.gray,
     width: '100%',
     padding: 10,

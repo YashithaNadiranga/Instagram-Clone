@@ -21,8 +21,10 @@ export default class Main extends Component {
       }
     
       handleBackButtonClick = () => {
-        this.props.navigation.goBack(null);
+        this.props.navigation.navigate('MainScreen');
+        // BackHandler.exitApp();
         return false;
+        // this.props.navigation.navigate('MainScreen');
       };
 
     render() {

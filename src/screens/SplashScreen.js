@@ -1,14 +1,48 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, StyleSheet, Image, BackHandler} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class SplashScreen extends Component {
 
   constructor(props){
     super(props);
     setTimeout(()=>{
-      this.props.navigation.navigate("InitialLaunchScreen")
+      this.isLoggedIn();
     }, 3000)
   }
+
+  isLoggedIn = async()=>{
+    const log = await AsyncStorage.getItem('isLoggedIn');
+    console.log(log);
+    if(log==='1'){
+      this.props.navigation.navigate('MainScreen');
+    }else{
+      this.props.navigation.navigate("InitialLaunchScreen")
+    }
+
+  }
+
+
+
+  componentDidMount() {
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.handleBackButtonClick,
+    );
+    
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.handleBackButtonClick,
+    );
+    
+  }
+
+  handleBackButtonClick = () => {
+    BackHandler.exitApp();
+  };
 
   render() {
     return (

@@ -7,19 +7,61 @@ import {
   Image,
   BackHandler,
 } from 'react-native';
+import {ActivityIndicator, Colors} from 'react-native-paper';
 import {Button} from 'react-native-paper';
 import {colors} from '../config/Colors';
+import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure({
+  webClientId:
+    '612061315562-euggnkh3akekkm8heq0c4mdusr43qe60.apps.googleusercontent.com',
+});
 
 export class InitialLaunchScreen extends Component {
   constructor(props) {
     super(props);
   }
 
+  onGoogleButtonPress = async () => {
+    // try {
+    // Get the users ID token
+    const {idToken} = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  };
+
+  // isLoggedIn = async()=>{
+  //   const log = await AsyncStorage.getItem('isLoggedIn');
+  //   console.log(log);
+  //   if(log==='1'){
+  //     this.props.navigation.navigate('MainScreen')
+  //   }else{
+  //     // this.props.navigation.navigate('MainScreen')
+  //   }
+
+  // }
+
+
   componentDidMount() {
     BackHandler.addEventListener(
       'hardwareBackPress',
       this.handleBackButtonClick,
     );
+
+    // this.isLoggedIn();
+
   }
 
   componentWillUnmount() {
@@ -31,8 +73,12 @@ export class InitialLaunchScreen extends Component {
 
   handleBackButtonClick = () => {
     this.props.navigation.goBack(null);
-    return false;
+    BackHandler.exitApp();
   };
+
+  activityin(){
+    'animating={true}'
+  }
 
   render() {
     return (
@@ -43,9 +89,9 @@ export class InitialLaunchScreen extends Component {
             style={styles.instaLogo}
             source={require('../assets/images/instagramLogo.png')}
           />
-
+          <ActivityIndicator  animating={false} color={Colors.red800} />
           <View style={styles.ButtonItemContainer}>
-            <Button
+            {/* <Button
               icon="facebook"
               labelStyle={{color: '#fff'}}
               contentStyle={{height: 45, paddingTop: 3}}
@@ -55,7 +101,23 @@ export class InitialLaunchScreen extends Component {
               <Text style={{fontSize: 16, color: 'white'}}>
                 Login with Facebook
               </Text>
-            </Button>
+            </Button> */}
+
+            <GoogleSigninButton
+              style={{width: '100%', height: 48}}
+              size={GoogleSigninButton.Size.Wide}
+              color={GoogleSigninButton.Color.Dark}
+              onPress={this._signIn}
+              // disabled={this.state.isSigninInProgress}
+              onPress={() =>
+                this.onGoogleButtonPress().then(() => {
+                  // <ActivityIndicator animating={true} color={Colors.red800} />;
+                  console.log('Signed in with Google!');
+                  AsyncStorage.setItem('isLoggedIn','1');
+                  this.props.navigation.navigate('MainScreen');
+                })
+              }
+            />
           </View>
 
           <View
@@ -107,7 +169,7 @@ export class InitialLaunchScreen extends Component {
                 marginBottom: 10,
               }}>
               <Text style={styles.from}>Already have an account? </Text>
-              <Text
+              <Text style={{fontWeight:'500'}}
                 onPress={() => {
                   this.props.navigation.navigate('SignInScreen');
                 }}>

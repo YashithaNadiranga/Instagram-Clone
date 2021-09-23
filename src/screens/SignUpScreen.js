@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
   Text,
   View,
@@ -10,11 +10,13 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   BackHandler,
+  TextInput,
 } from 'react-native';
 import {colors} from '../config/Colors';
 import PhoneInputForm from '../components/PhoneInputForm';
 import PrimaryInputForm from '../components/PrimaryInputForm';
 import {Button} from 'react-native-paper';
+import auth from '@react-native-firebase/auth';
 
 export class SignUpScreen extends Component {
   constructor(props) {
@@ -22,7 +24,12 @@ export class SignUpScreen extends Component {
 
     this.state = {
       isPhoneEnabled: true,
+      email: '',
+      pass: '',
+      name:''
     };
+
+    this.signUp = this.signUp.bind(this);
   }
 
   componentDidMount() {
@@ -46,6 +53,30 @@ export class SignUpScreen extends Component {
 
   switchButton(val) {
     this.setState({isPhoneEnabled: val});
+  };
+
+  signUp =()=>{
+    auth()
+    .createUserWithEmailAndPassword(this.state.email, this.state.pass)
+    .then((createdUser) => {
+
+      createdUser.user.updateProfile({
+        displayName : this.state.name
+      })
+
+      this.props.navigation.navigate('SignInScreen')
+    })
+    .catch(error => {
+      if (error.code === 'auth/email-already-in-use') {
+        console.log('That email address is already in use!');
+      }
+  
+      if (error.code === 'auth/invalid-email') {
+        console.log('That email address is invalid!');
+      }
+  
+      console.error(error);
+    });
   }
 
   render() {
@@ -53,7 +84,8 @@ export class SignUpScreen extends Component {
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}>
+        style={styles.container}
+        >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.container}>
             <View style={styles.topContainer}>
@@ -132,7 +164,56 @@ export class SignUpScreen extends Component {
 
               <View style={{display: isPhoneEnabled ? 'none' : 'flex'}}>
                 <View style={styles.EmailINputWrapper}>
-                  <PrimaryInputForm placeHolderText=" Email address" />
+                  <View
+                    style={{
+                      backgroundColor: colors.gray1,
+                      borderWidth: 0.5,
+                      borderColor: colors.gray,
+                      borderRadius: 5,
+                      paddingLeft: 10,
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}>
+                    <TextInput 
+                    placeholder="Email" 
+                    value={this.state.email}
+                    onChangeText={(value)=>{this.setState({email:value})}}
+                    
+                    />
+                  </View>
+                  
+                  <View
+                    style={{
+                      backgroundColor: colors.gray1,
+                      borderWidth: 0.5,
+                      borderColor: colors.gray,
+                      borderRadius: 5,
+                      paddingLeft: 10,
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}>
+                    <TextInput placeholder="Password" secureTextEntry={true} 
+                    value={this.state.pass}
+                    onChangeText={(value)=>{this.setState({pass:value})}}
+                    />
+                  </View>
+
+                  <View
+                    style={{
+                      backgroundColor: colors.gray1,
+                      borderWidth: 0.5,
+                      borderColor: colors.gray,
+                      borderRadius: 5,
+                      paddingLeft: 10,
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}>
+                    <TextInput placeholder="Display Name"
+                    value={this.state.displayName}
+                    onChangeText={(value)=>{this.setState({displayName:value})}}
+                    />
+                  </View>
+                  
                 </View>
                 <View style={styles.buttonWrapper}>
                   <Button
@@ -141,9 +222,9 @@ export class SignUpScreen extends Component {
                     color="#3897f0"
                     mode="contained"
                     onPress={() => {
-                      this.props.navigation.navigate('MainScreen');
+                      this.signUp();
                     }}>
-                    <Text style={{fontSize: 12, color: 'white'}}>Next</Text>
+                    <Text style={{fontSize: 12, color: 'white'}}>Sign UP</Text>
                   </Button>
                 </View>
               </View>
@@ -154,7 +235,13 @@ export class SignUpScreen extends Component {
                 <Text style={styles.alreradyAccount}>
                   Already have an account?
                 </Text>{' '}
-                <Text style={styles.logIn} onPress={()=>{this.props.navigation.navigate('SignInScreen')}}>LogIn.</Text>
+                <Text
+                  style={styles.logIn}
+                  onPress={() => {
+                    this.props.navigation.navigate('SignInScreen');
+                  }}>
+                  LogIn.
+                </Text>
               </Text>
             </View>
           </View>
@@ -174,11 +261,11 @@ const styles = StyleSheet.create({
   avatarWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: '20%',
+    marginTop: '10%',
   },
   avatar: {
-    width: 150,
-    height: 150,
+    width: 120,
+    height: 120,
   },
   switchTitleWrapper: {
     display: 'flex',

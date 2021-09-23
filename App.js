@@ -13,6 +13,7 @@ import SignUpScreen from './src/screens/SignUpScreen';
 import SignInScreen from './src/screens/SignInScreen';
 import NotificationScreen  from './src/screens/Notification';
 import MessageScreen  from './src/screens/Message';
+import Shop  from './src/screens/Shop';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +25,9 @@ export default class App extends Component {
           initialRoutename="SplashScreen"
           screenOptions={{
             header: props => <AppBar {...props} />,
-          }}>
+          }}
+          
+          >
           <Stack.Screen
             name="SplashScreen"
             component={SplashScreen}
@@ -65,6 +68,10 @@ export default class App extends Component {
           <Stack.Screen
             name="Message"
             component={MessageScreen}
+          />
+          <Stack.Screen
+            name="ShopScreen"
+            component={Shop}
           />
           <Stack.Screen name="MainScreen" component={MainScreen} />
         </Stack.Navigator>
