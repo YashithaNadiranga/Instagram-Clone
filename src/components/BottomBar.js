@@ -8,15 +8,17 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import HomeScreen from '../screens/Home';
 import SearchScreen from '../screens/Search';
-import AddScreen from '../screens/AddNewPost';
+import AddScreen, { AddNewPost } from '../screens/AddNewPost';
 import ShopScreen from '../screens/Shop';
 import ProfileScreen from '../screens/ProfileScreen';
+import UploadScreen from '../screens/UploadPost';
+
 
 const HomeRoute = () => <HomeScreen />;
 
 const SearchRoute = () => <SearchScreen />;
 
-const AddRoute = () => <AddScreen />;
+const AddRoute = () => <UploadScreen />;
 
 const ShopRoute = () => <ShopScreen />;
 

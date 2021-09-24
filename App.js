@@ -14,6 +14,8 @@ import SignInScreen from './src/screens/SignInScreen';
 import NotificationScreen  from './src/screens/Notification';
 import MessageScreen  from './src/screens/Message';
 import Shop  from './src/screens/Shop';
+import UploadPost  from './src/screens/UploadPost';
+import AddNewPost  from './src/screens/AddNewPost';
 
 const Stack = createStackNavigator();
 
@@ -73,6 +75,16 @@ export default class App extends Component {
             name="ShopScreen"
             component={Shop}
           />
+          <Stack.Screen
+            name="UploadPost"
+            component={UploadPost}
+          />
+          <Stack.Screen
+            name="AddNewPost"
+            component={AddNewPost}
+          />
+
+
           <Stack.Screen name="MainScreen" component={MainScreen} />
         </Stack.Navigator>
       </NavigationContainer>

@@ -12,9 +12,9 @@ class Home extends Component {
           <Stories />
         </View>
 
-        <ScrollView style={styles.feedContainer}>
+        {/* <ScrollView style={styles.feedContainer}> */}
           <Feed />
-        </ScrollView>
+        {/* </ScrollView> */}
       </View>
     );
   }

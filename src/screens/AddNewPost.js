@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {
   Text,
   View,
@@ -20,7 +20,7 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 
-export class AddNewPost extends PureComponent {
+export class AddNewPost extends Component {
 
     constructor(props){
         super(props);
@@ -29,8 +29,13 @@ export class AddNewPost extends PureComponent {
             imagePath: '',
             fileName:'',
             displayName:''
-        }
+        };
+
+        this.uploadImage = this.uploadImage.bind(this)
     }
+
+    
+
   takePicture = async () => {
     if (this.camera) {
       const options = {quality: 0.5, base64: true};
@@ -58,19 +63,21 @@ export class AddNewPost extends PureComponent {
       })
   }
 
-  componentDidMount(){
-    const dname = AsyncStorage.getItem('User');
-    this.setState({displayName : dname})
-      console.log(this.state.displayName);
-  }
+
 
   uploadImage = async()=>{
-    
-    const imagename = this.state.displayName+ this.state.fileName+'jpg';
+    try {
+
+    const imagename = this.state.displayName + this.state.fileName;
     const reference = storage().ref(`photos/${imagename}`);
     await reference.putFile(this.state.imagePath);
     const url = await storage().ref(`photos/${imagename}`).getDownloadURL();
     console.log(url);
+
+    } catch (error) {
+      console.log(error);
+    }
+    
   }
 
   render() {
@@ -86,7 +93,7 @@ export class AddNewPost extends PureComponent {
             </View>
           </View> */}
         </View>
-        <View style={styles.previewWrapper,{display:'flex'}}>
+        <View style={styles.previewWrapper}>
           <RNCamera
             ratio={'2:2'}
             ref={ref => {
@@ -112,7 +119,7 @@ export class AddNewPost extends PureComponent {
             // }}
           />
         </View>
-        <View style={styles.buttonWrapper,{display:'none'}}>
+        <View style={styles.buttonWrapper}>
           <TouchableOpacity
             onPress={this.takePicture.bind(this)}
             style={styles.capture}>
@@ -128,10 +135,10 @@ export class AddNewPost extends PureComponent {
             <Text style={styles.footerTitle} onPress={this.getPhotofromGalary}>GALLERY</Text>
           </View>
           <View style={styles.pickedFooterSection}>
-            <Text style={styles.pickedFooterTitle}>PHO TO</Text>
+            <Text style={styles.pickedFooterTitle}>PHOTO</Text>
           </View>
           <View style={styles.footerSection}>
-            <Text style={styles.footerTitle}>VIDEO</Text>
+            <Text style={styles.footerTitle}>POSTS</Text>
           </View>
         </View>
       </View>

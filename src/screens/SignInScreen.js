@@ -83,9 +83,9 @@ export class SignInScreen extends Component {
       auth()
         .signInWithEmailAndPassword(this.state.email, this.state.pass)
         .then((res) => {
-          console.log(res.user.displayName);
-          AsyncStorage.setItem('isLoggedIn','1');
-          AsyncStorage.setItem('User', res.user.displayName);
+          const name = res.user.displayName;
+          // this.savedata(name);
+          AsyncStorage.setItem('isLoggedIn','1');          
           this.props.navigation.navigate('MainScreen');
         });
     } catch (error) {
@@ -93,6 +93,11 @@ export class SignInScreen extends Component {
     }
   }
 
+  savedata = async(name)=>{
+    await AsyncStorage.setItem('name', JSON.stringify(name));
+    const log = await AsyncStorage.getItem('name');
+    console.log(log);
+  }
   checkValidation =()=>{
 
     if(this.state.email.length==0){
@@ -101,7 +106,6 @@ export class SignInScreen extends Component {
       Alert.alert('Validation Error','Please Enter valid Password')
     }else{
       this.login();
-      console.log(this.state.email +''+this.state.pass);
     }
   }
 

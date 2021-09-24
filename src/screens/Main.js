@@ -11,6 +11,8 @@ export default class Main extends Component {
           'hardwareBackPress',
           this.handleBackButtonClick,
         );
+
+        // this.props.navigation.navigate('UploadPost',{id: (navigation.getParam('user'))})
       }
     
       componentWillUnmount() {
@@ -23,7 +25,7 @@ export default class Main extends Component {
       handleBackButtonClick = () => {
         this.props.navigation.navigate('MainScreen');
         // BackHandler.exitApp();
-        return false;
+        return true;
         // this.props.navigation.navigate('MainScreen');
       };
 

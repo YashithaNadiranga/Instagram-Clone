@@ -15,7 +15,7 @@ export default class Shop extends Component {
       .then(() => {
         console.log('User signed out!')
         AsyncStorage.setItem('isLoggedIn','0');
-        AsyncStorage.setItem('User','');
+        
         this.props.navigation.navigate('SignInScreen');
       });
   };
@@ -30,6 +30,7 @@ export default class Shop extends Component {
               mode="contained"
               onPress={() => {
                 AsyncStorage.setItem('isLoggedIn','0');
+                AsyncStorage.setItem('username','');
                 // this.props.navigation.navigate('SignInScreen');
                 // <SignInScreen navigation = {this.props.navigation} />
                 // window.location.reload(false);

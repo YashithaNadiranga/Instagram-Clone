@@ -8,6 +8,8 @@ import {
   ScrollView,
 } from 'react-native';
 import {colors} from '../config/Colors';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 export class ProfileScreen extends Component {
   render() {
@@ -22,22 +24,22 @@ export class ProfileScreen extends Component {
               />
               <Image
                 style={styles.userImage}
-                source={require('../assets/images/profilePage/face.jpeg')}
+                source={{uri:auth().currentUser.photoURL}}
               />
-              <Text style={styles.userName}>Catherin</Text>
+              <Text style={styles.userName}>{auth().currentUser.displayName}</Text>
             </View>
             <View style={styles.followersCountSection}>
               <View style={styles.followingCount}>
                 <View>
-                  <Text style={styles.countTitle}>334</Text>
+                  <Text style={styles.countTitle}>2</Text>
                   <Text style={styles.countSubTitle}>Posts</Text>
                 </View>
                 <View>
-                  <Text style={styles.countTitle}>211K</Text>
+                  <Text style={styles.countTitle}>0</Text>
                   <Text style={styles.countSubTitle}>Followers</Text>
                 </View>
                 <View>
-                  <Text style={styles.countTitle}>134</Text>
+                  <Text style={styles.countTitle}>0</Text>
                   <Text style={styles.countSubTitle}>Following</Text>
                 </View>
               </View>
@@ -62,57 +64,57 @@ export class ProfileScreen extends Component {
           </View>
           <View style={styles.moreInfoWrapper}>
             <Text style={styles.introText}>
-              Discovering Stories Around the world
+            To Empower People Digitally
             </Text>
-            <Text style={styles.urlText}>www.catherin.com</Text>
+            <Text style={styles.urlText}>www.feanixlabs.com</Text>
           </View>
           <ScrollView style={styles.storiesWrapper} horizontal={true} showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}>
             <View>
               <Image
                 style={styles.storiesImage}
-                source={require('../assets/images/profilePage/face.jpeg')}
+                source={{uri:auth().currentUser.photoURL}}
               />
-              <Text style={styles.storyProfName}>Catherin 1</Text>
+              <Text style={styles.storyProfName}>{auth().currentUser.displayName}</Text>
             </View>
             <View>
               <Image
                 style={styles.storiesImage}
-                source={require('../assets/images/profilePage/face.jpeg')}
+                source={{uri:auth().currentUser.photoURL}}
               />
-              <Text style={styles.storyProfName}>Catherin 2</Text>
-            </View>
-
-            <View>
-              <Image
-                style={styles.storiesImage}
-                source={require('../assets/images/profilePage/face.jpeg')}
-              />
-              <Text style={styles.storyProfName}>Catherin 3</Text>
+              <Text style={styles.storyProfName}>{auth().currentUser.displayName}</Text>
             </View>
 
             <View>
               <Image
                 style={styles.storiesImage}
-                source={require('../assets/images/profilePage/face.jpeg')}
+                source={{uri:auth().currentUser.photoURL}}
               />
-              <Text style={styles.storyProfName}>Catherin 4</Text>
+              <Text style={styles.storyProfName}>{auth().currentUser.displayName}</Text>
             </View>
 
             <View>
               <Image
                 style={styles.storiesImage}
-                source={require('../assets/images/profilePage/face.jpeg')}
+                source={{uri:auth().currentUser.photoURL}}
               />
-              <Text style={styles.storyProfName}>Catherin 5</Text>
+              <Text style={styles.storyProfName}>{auth().currentUser.displayName}</Text>
             </View>
 
             <View>
               <Image
                 style={styles.storiesImage}
-                source={require('../assets/images/profilePage/face.jpeg')}
+                source={{uri:auth().currentUser.photoURL}}
               />
-              <Text style={styles.storyProfName}>Catherin 6</Text>
+              <Text style={styles.storyProfName}>{auth().currentUser.displayName}</Text>
+            </View>
+
+            <View>
+              <Image
+                style={styles.storiesImage}
+                source={{uri:auth().currentUser.photoURL}}
+              />
+              <Text style={styles.storyProfName}>{auth().currentUser.displayName}</Text>
             </View>
           </ScrollView>
 
@@ -204,13 +206,13 @@ export const styles = StyleSheet.create({
     flex: 2,
   },
   instaImageBorder: {
-    width: 130,
-    height: 130,
+    width: 100,
+    height: 100,
   },
   userImage: {
     position: 'absolute',
-    width: 115,
-    height: 115,
+    width: 84,
+    height: 84,
     borderRadius: 70,
     margin: 13,
   },
