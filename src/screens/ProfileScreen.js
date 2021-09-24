@@ -10,6 +10,8 @@ import {
 import {colors} from '../config/Colors';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNRestart from 'react-native-restart';
 
 export class ProfileScreen extends Component {
   render() {
@@ -53,10 +55,16 @@ export class ProfileScreen extends Component {
                     source={require('../assets/images/profilePage/profielbuttonplus.png')}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.ButtonItemWrapper}>
+                <TouchableOpacity style={styles.ButtonItemWrapper} onPress={()=>
+                  {
+                    AsyncStorage.setItem('isLoggedIn','0');  
+                    RNRestart.Restart();
+                  }
+                }>
                   <Image
                     style={styles.buttonIcon}
                     source={require('../assets/images/profilePage/dropdown.png')}
+                    
                   />
                 </TouchableOpacity>
               </View>
@@ -261,7 +269,8 @@ export const styles = StyleSheet.create({
   userName: {
     fontSize: 19,
     fontWeight: '600',
-    textAlign: 'center',
+    textAlign: 'left',
+    marginLeft: 11
   },
   moreInfoWrapper: {
     marginLeft: 15,

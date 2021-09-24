@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {colors} from '../config/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import auth from '@react-native-firebase/auth';
 
 //notificationType:'0' - Users shared Photos
 //notificationType:'1' - Follow user
@@ -21,8 +22,8 @@ const DATA = [
       {
         notificationType: '0',
         notificationDuration: '5 h',
-        mentionedUsers: ['Roy', 'Jackson', 'Manjula'],
-        notificationImage: require('../assets/images/face.jpeg'),
+        mentionedUsers: ['Shamal', 'Sachin', 'Manjula'],
+        notificationImage: {uri: auth().currentUser.photoURL},
         noOfPhotos: 5,
       },
     ],
@@ -33,8 +34,8 @@ const DATA = [
       {
         notificationType: '1',
         notificationDuration: '2 d',
-        mentionedUsers: ['Roy', 'Jackson', 'Manjula'],
-        notificationImage: require('../assets/images/face.jpeg'),
+        mentionedUsers: ['Shamal', 'Sahan', 'Dila'],
+        notificationImage: {uri: auth().currentUser.photoURL},
       },
     ],
   },
@@ -44,8 +45,8 @@ const DATA = [
       {
         notificationType: '1',
         notificationDuration: '1 w',
-        mentionedUsers: ['Roy', 'Jackson'],
-        notificationImage: require('../assets/images/face.jpeg'),
+        mentionedUsers: ['Yasindu', 'Hasika'],
+        notificationImage: {uri: auth().currentUser.photoURL},
       },
     ],
   },
@@ -55,8 +56,8 @@ const DATA = [
       {
         notificationType: '2',
         notificationDuration: '1 w',
-        mentionedUsers: ['Roy', 'Jackson', 'Janaki'],
-        notificationImage: require('../assets/images/face.jpeg'),
+        mentionedUsers: ['Shanil', 'Yasindu', 'Navishka'],
+        notificationImage: {uri: auth().currentUser.photoURL},
       },
     ],
   },

@@ -15,7 +15,6 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Button, IconButton} from 'react-native-paper';
 import {colors} from '../config/Colors';
-import PrimaryInputForm from '../components/PrimaryInputForm';
 import auth from '@react-native-firebase/auth';
 // import {
 //   GoogleSignin,
@@ -41,22 +40,8 @@ export class SignInScreen extends Component {
     // this.onGoogleButtonPress = this.onGoogleButtonPress.bind(this);
   }
   
-    // onGoogleButtonPress = async()=> {
+ 
 
-    //   // try {
-    //   // Get the users ID token
-    //   const { idToken } = await GoogleSignin.signIn();
-    
-    //   // Create a Google credential with the token
-    //   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    
-    //   // Sign-in the user with the credential
-    //   return auth().signInWithCredential(googleCredential);
-    // // } catch (error) {
-    // //   console.log(error);
-    // // }
-    // }
-  
   
 
   componentDidMount() {

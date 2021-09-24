@@ -28,7 +28,7 @@ export class InitialLaunchScreen extends Component {
   }
 
   onGoogleButtonPress = async () => {
-    // try {
+    try {
     // Get the users ID token
     const {idToken} = await GoogleSignin.signIn();
 
@@ -37,21 +37,11 @@ export class InitialLaunchScreen extends Component {
 
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // isLoggedIn = async()=>{
-  //   const log = await AsyncStorage.getItem('isLoggedIn');
-  //   console.log(log);
-  //   if(log==='1'){
-  //     this.props.navigation.navigate('MainScreen')
-  //   }else{
-  //     // this.props.navigation.navigate('MainScreen')
-  //   }
-
-  // }
 
 
   componentDidMount() {
@@ -59,9 +49,6 @@ export class InitialLaunchScreen extends Component {
       'hardwareBackPress',
       this.handleBackButtonClick,
     );
-
-    // this.isLoggedIn();
-
   }
 
   componentWillUnmount() {
@@ -108,10 +95,8 @@ export class InitialLaunchScreen extends Component {
               size={GoogleSigninButton.Size.Wide}
               color={GoogleSigninButton.Color.Dark}
               onPress={this._signIn}
-              // disabled={this.state.isSigninInProgress}
               onPress={() =>
                 this.onGoogleButtonPress().then(() => {
-                  // <ActivityIndicator animating={true} color={Colors.red800} />;
                   console.log('Signed in with Google!');
                   AsyncStorage.setItem('isLoggedIn','1');
                   this.props.navigation.navigate('MainScreen');

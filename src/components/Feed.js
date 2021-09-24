@@ -56,6 +56,7 @@ export default class Feed extends Component {
               source={{uri:post.profile}}
             />
             <Text style={styles.headerTitle}> {post.user}</Text>
+            
           </View>
           <Image
             style={styles.icon}
@@ -63,6 +64,7 @@ export default class Feed extends Component {
           />
         </View>
         <View>
+        <Text style={{marginLeft:60,marginTop: -25,marginBottom:15}}> {post.time}</Text>
           <Image
             style={styles.feedImage}
             // source={require('../assets/images/feedImage.jpg')}

@@ -17,6 +17,7 @@ import PhoneInputForm from '../components/PhoneInputForm';
 import PrimaryInputForm from '../components/PrimaryInputForm';
 import {Button} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 export class SignUpScreen extends Component {
   constructor(props) {
@@ -26,7 +27,8 @@ export class SignUpScreen extends Component {
       isPhoneEnabled: true,
       email: '',
       pass: '',
-      name:''
+      displayName:'',
+      photo:'https://i.stack.imgur.com/34AD2.jpg'
     };
 
     this.signUp = this.signUp.bind(this);
@@ -61,10 +63,21 @@ export class SignUpScreen extends Component {
     .then((createdUser) => {
 
       createdUser.user.updateProfile({
-        displayName : this.state.name
+        displayName : this.state.displayName,
+        photoURL: this.state.photo
       })
 
-      this.props.navigation.navigate('SignInScreen')
+      firestore()
+          .collection('users')
+          .add({
+            uid : this.state.displayName,
+            photo: this.state.photo
+          })
+
+
+
+      this.props.navigation.navigate('SignInScreen');
+
     })
     .catch(error => {
       if (error.code === 'auth/email-already-in-use') {
@@ -177,6 +190,8 @@ export class SignUpScreen extends Component {
                     <TextInput 
                     placeholder="Email" 
                     value={this.state.email}
+                    autoCapitalize='none'
+                    autoCompleteType='email'
                     onChangeText={(value)=>{this.setState({email:value})}}
                     
                     />

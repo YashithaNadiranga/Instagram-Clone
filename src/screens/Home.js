@@ -11,10 +11,7 @@ class Home extends Component {
         <View style={styles.storiesWrapper}>
           <Stories />
         </View>
-
-        {/* <ScrollView style={styles.feedContainer}> */}
           <Feed />
-        {/* </ScrollView> */}
       </View>
     );
   }

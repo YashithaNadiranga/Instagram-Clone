@@ -71,18 +71,6 @@ export default class App extends Component {
             name="Message"
             component={MessageScreen}
           />
-          <Stack.Screen
-            name="ShopScreen"
-            component={Shop}
-          />
-          <Stack.Screen
-            name="UploadPost"
-            component={UploadPost}
-          />
-          <Stack.Screen
-            name="AddNewPost"
-            component={AddNewPost}
-          />
 
 
           <Stack.Screen name="MainScreen" component={MainScreen} />

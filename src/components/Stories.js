@@ -73,9 +73,9 @@ export class Stories extends Component {
             />
             <Image
               style={styles.otherStories}
-              source={require('../assets/images/face.jpeg')}
+              source={require('../assets/images/feanix.jpg')}
             />
-            <Text style={styles.profileName}>Sonia</Text>
+            <Text style={styles.profileName}>Feanix Labs</Text>
           </View>
         </ScrollView>
       </View>
