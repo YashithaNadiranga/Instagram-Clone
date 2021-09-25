@@ -11,7 +11,7 @@ export class PhoneInputForm extends Component {
           <Text style={styles.country}>LK +94</Text>
         </View>
         <View style={styles.inputNumber}>
-          <TextInput value={'763437189'} />
+          <TextInput  />
         </View>
         <View style={styles.closeBtnWrapper}>
           <Icon

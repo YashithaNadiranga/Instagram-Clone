@@ -1,73 +1,137 @@
-import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import React, {Component} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ScrollView,
+  Image,
+} from 'react-native';
 import {colors} from '../config/Colors';
-const Feed = () => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.headerWrapper}>
-        <View style={styles.headerLeftWrapper}>
+import firestore from '@react-native-firebase/firestore';
+import {SafeAreaView} from 'react-native-safe-area-context';
+
+export default class Feed extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      postslist: [],
+    };
+  }
+
+  componentDidMount() {
+    const subscriber = firestore()
+      .collection('posts')
+      .onSnapshot(querySnapshot => {
+        const posts = [];
+
+        querySnapshot.forEach(documentSnapshot => {
+          // console.log(documentSnapshot.data());
+
+          posts.push({
+            feedimage: documentSnapshot.data().image,
+            profile: documentSnapshot.data().profile,
+            time: documentSnapshot.data().time,
+            title: documentSnapshot.data().title,
+            user: documentSnapshot.data().user,
+
+            key: documentSnapshot.id,
+          });
+        });
+        this.setState({
+          postslist: posts,
+        });
+
+        console.log(this.state.postslist);
+      });
+  }
+
+  renderItem = post => {
+    return (
+      <View style={styles.container}>
+        <View style={styles.headerWrapper}>
+          <View style={styles.headerLeftWrapper}>
+            <Image
+              style={styles.profileThumb}
+              source={{uri:post.profile}}
+            />
+            <Text style={styles.headerTitle}> {post.user}</Text>
+            
+          </View>
           <Image
-            style={styles.profileThumb}
-            source={require('../assets/images/face.jpeg')}
+            style={styles.icon}
+            source={require('../assets/images/dots.jpg')}
           />
-          <Text style={styles.headerTitle}> Catherine</Text>
         </View>
-        <Image
-          style={styles.icon}
-          source={require('../assets/images/dots.jpg')}
-        />
-      </View>
-      <View>
-        <Image
-          style={styles.feedImage}
-          source={require('../assets/images/feedImage.jpg')}
-        />
-      </View>
-      <View style={styles.feedImageFooter}>
-        <View style={styles.feddimageFooterLeftWrapper}>
+        <View>
+        <Text style={{marginLeft:60,marginTop: -25,marginBottom:15}}> {post.time}</Text>
           <Image
-            style={styles.icon}
-            source={require('../assets/images/heartfeed.jpg')}
-          />
-          <Image
-            style={styles.icon}
-            source={require('../assets/images/comment.png')}
-          />
-          <Image
-            style={styles.icon}
-            source={require('../assets/images/messagefeed.png')}
+            style={styles.feedImage}
+            // source={require('../assets/images/feedImage.jpg')}
+            source={{uri:post.feedimage}}
           />
         </View>
-        <Image
-          style={styles.icon}
-          source={require('../assets/images/bookmarkfeed.png')}
-        />
-      </View>
-      <View style={styles.underLineWRapper}>
-        <View style={styles.underLine} />
-      </View>
-      <View style={styles.likesAndCommentsWrapper}>
-        <Image
+        <View style={styles.feedImageFooter}>
+          <View style={styles.feddimageFooterLeftWrapper}>
+            <Image
+              style={styles.icon}
+              source={require('../assets/images/heartfeed.jpg')}
+            />
+            <Image
+              style={styles.icon}
+              source={require('../assets/images/comment.png')}
+            />
+            <Image
+              style={styles.icon}
+              source={require('../assets/images/messagefeed.png')}
+            />
+          </View>
+          <Image
+            style={styles.icon}
+            source={require('../assets/images/bookmarkfeed.png')}
+          />
+        </View>
+        <View style={styles.underLineWRapper}>
+          <View style={styles.underLine} />
+        </View>
+        <View style={styles.likesAndCommentsWrapper}>
+          {/* <Image
           style={styles.likesImage}
           source={require('../assets/images/heart.png')}
-        />
-        <Text style={styles.likesTitle}> 1,124 Likes</Text>
+        /> */}
+          <Text style={styles.likesTitle}> 0 Likes</Text>
+        </View>
 
-        <Text>
-          {' '}
-          <Text style={styles.headerTitle}> Catherine</Text>{' '}
-          <Text style={styles.likesTitle}> Missing Summary </Text>
-        </Text>
+        <View>
+          <Text style={{paddingLeft: 15, marginTop: -15, marginBottom: 20}}>
+            {' '}
+            <Text style={styles.headerTitle}>{post.user}</Text>{' '}
+            <Text style={styles.likesTitle2}> {post.title} </Text>
+          </Text>
+        </View>
       </View>
-    </View>
-  );
-};
+    );
+  };
 
-export default Feed;
+  render() {
+    return (
+
+      <View style={styles.container,{marginBottom:'38%'}}>
+        <FlatList
+          data={this.state.postslist}
+          keyExtractor={item => item.key}
+          renderItem={({item}) => 
+            this.renderItem(item)}
+        />
+      </View>
+    );
+  }
+}
 
 export const styles = StyleSheet.create({
   container: {
     display: 'flex',
+    width:'100%'
   },
   profileThumb: {
     width: 50,
@@ -81,8 +145,8 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
   icon: {
-    width: 40,
-    height: 40,
+    width: 25,
+    height: 25,
     opacity: 0.5,
   },
   headerLeftWrapper: {
@@ -95,6 +159,7 @@ export const styles = StyleSheet.create({
   },
   feedImage: {
     width: '100%',
+    height: 350
   },
   feedImageFooter: {
     padding: 10,
@@ -123,5 +188,9 @@ export const styles = StyleSheet.create({
   likesTitle: {
     fontSize: 17,
     fontWeight: '600',
+  },
+  likesTitle2: {
+    fontSize: 17,
+    fontWeight: '400',
   },
 });

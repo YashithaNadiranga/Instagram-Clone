@@ -5,13 +5,17 @@ import {NavigationContainer} from '@react-navigation/native';
 
 //Screens
 
-import LoginScreen from './src/screens/LoginScreen';
 import MainScreen from './src/screens/Main';
 import AppBar from './src/components/AppBar';
 import SplashScreen from './src/screens/SplashScreen';
 import InitialLaunchScreen from './src/screens/InitialLaunchScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
-
+import SignInScreen from './src/screens/SignInScreen';
+import NotificationScreen  from './src/screens/Notification';
+import MessageScreen  from './src/screens/Message';
+import Shop  from './src/screens/Shop';
+import UploadPost  from './src/screens/UploadPost';
+import AddNewPost  from './src/screens/AddNewPost';
 
 const Stack = createStackNavigator();
 
@@ -23,7 +27,9 @@ export default class App extends Component {
           initialRoutename="SplashScreen"
           screenOptions={{
             header: props => <AppBar {...props} />,
-          }}>
+          }}
+          
+          >
           <Stack.Screen
             name="SplashScreen"
             component={SplashScreen}
@@ -41,8 +47,8 @@ export default class App extends Component {
           />
 
           <Stack.Screen
-            name="LoginScreen"
-            component={LoginScreen}
+            name="SignInScreen"
+            component={SignInScreen}
             options={{
               headerShown: false,
             }}
@@ -55,11 +61,21 @@ export default class App extends Component {
               headerShown: false,
             }}
           />
+
+          <Stack.Screen
+            name="Notification"
+            component={NotificationScreen}
+          />
+
+          <Stack.Screen
+            name="Message"
+            component={MessageScreen}
+          />
+
+
           <Stack.Screen name="MainScreen" component={MainScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
-
-// screenOptions={{ headerShown: false }}
