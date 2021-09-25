@@ -5,6 +5,7 @@ import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar,Image } from 
 import {colors} from '../config/Colors';
 import auth from '@react-native-firebase/auth';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import SearchBox from '../components/SearchBox';
 
 
 export default class Shop extends Component {
@@ -60,6 +61,9 @@ export default class Shop extends Component {
   render() {
     return (
       <View style={styles.container,{marginBottom:'38%'}}>
+        <View  style={{marginBottom: 40}} >
+          <SearchBox/>
+        </View>
         <FlatList
           data={this.state.userlist}
           // keyExtractor={item => item.key}

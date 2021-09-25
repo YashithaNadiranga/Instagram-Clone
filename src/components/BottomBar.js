@@ -3,6 +3,7 @@ import { BottomNavigation, Text } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 
 //screens
 
@@ -32,7 +33,7 @@ const BottomBar = () => {
     { key: 'home', title: 'Home', icon: 'home'},
     { key: 'search', title: 'Search', icon : (props)=> <Ionicons {...props} name='search-outline'/>},
     { key: 'add', title: 'NewPost', icon : (props)=> <FontAwesome {...props} name='plus-square-o'/> },
-    { key: 'shop', title: 'Shop', icon : (props)=> <MaterialCommunityIcons {...props} name='shopping-outline'/> },
+    { key: 'shop', title: 'Shop', icon : (props)=> <Feather {...props} name='user-plus'/> },
     { key: 'profile', title: 'Profile', icon : (props)=> <FontAwesome {...props} name='user-circle-o'/> },
   ]);
 
